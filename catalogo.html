@@ -1,0 +1,110 @@
+<DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="catalogo.css">
+    <title>Mercado Digital</title>
+   
+    
+</head>
+<body>
+    <div id="header">
+        <h1>Catálogo</h1>
+        <div id="carrinho">
+            <div class="paste-button">
+                <button class="button">Carrinho&nbsp; ▼</button>
+                <div class="dropdown-content" id="carrinho-items">
+                  
+                </div>
+            </div>
+        </div>
+        <button id="edit-catalog-button" style="display: none;">Editar Catálogo</button>
+        <button id="logout-button" style="display: none;" onclick="logout()">Logout ADM</button>
+    </div>
+    <div id="produtos"></div>
+    <dialog id="crud-modal">
+        <div class="modal-content">
+            <span class="close" id="close-crud-modal">&times;</span>
+            <h2>Gerenciar Catálogo</h2>
+            <div id="produto-form">
+                <input type="text" id="produto-nome" placeholder="Nome do Produto">
+                <input type="text" id="produto-img" placeholder="URL da Imagem">
+                <input type="number" id="produto-preco" placeholder="Preço">
+                <button onclick="adicionarProduto()">Adicionar Produto</button>
+            </div>
+        </div>
+    </dialog>
+    <dialog id="edit-modal">
+        <div class="modal-content">
+            <span class="close" id="close-edit-modal">&times;</span>
+            <h2>Editar Produto</h2>
+            <div id="editar-produto-form">
+                <input type="hidden" id="editar-produto-index">
+                <input type="text" id="editar-produto-nome" placeholder="Nome do Produto">
+                <input type="text" id="editar-produto-img" placeholder="URL da Imagem">
+                <input type="number" id="editar-produto-preco" placeholder="Preço">
+                <button onclick="salvarEdicaoProduto()">Salvar Alterações</button>
+            </div>
+        </div>
+    </dialog>
+    <dialog id="modal-pagamento">
+        <div class="FormaPagamento">
+        <h1 id="payment">Pagamento</h1>
+    <form id="payment-form">
+        <label for="name">Nome no Cartão:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="card-number">Número do Cartão:</label>
+        <input type="text" id="card-number" name="card-number" required>
+        <label for="expiry">Data de Expiração:</label>
+        <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
+        <label for="cvv">CVV:</label>
+        <input type="text" id="cvv" name="cvv" required>
+        <label for="payment-method">Forma de Pagamento:</label>
+        <select id="payment-method" name="payment-method" required>
+            <option value="credito">Cartão de Crédito</option>
+            <option value="debito">Cartão de Débito</option>
+            <option value="paypal">PayPal</option>
+            <option value="boleto">Boleto Bancário</option>
+        </select>
+        <h2>Informações de Entrega</h2>
+        <label for="address">Endereço de Entrega:</label>
+        <input type="text" id="address" name="address" required>
+        <label for="city">Cidade:</label>
+        <input type="text" id="city" name="city" required>
+        <label for="state">Estado:</label>
+        <input type="text" id="state" name="state" required>
+        <label for="zipcode">CEP:</label>
+        <input type="text" id="zipcode" name="zipcode" required>
+        <div id="produtos-pagamento"></div>
+        <div id="total-pagamento"></div>
+        <button type="submit">Pagar</button>
+        <button id="fechar" onclick="Fechar()">X</button>
+    </form>
+    </div>
+    </dialog>
+    
+
+<script src="catalogo.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const isAdmin = localStorage.getItem('admin') === 'true';
+        const editButton = document.querySelector("#edit-catalog-button");
+        const logoutButton = document.querySelector("#logout-button");
+        const removeButtons = document.querySelectorAll("#remover");
+
+        if (isAdmin) {
+            editButton.style.display = "block";
+            logoutButton.style.display = "block";
+            removeButtons.forEach(button => button.style.display = "block");
+        }
+    });
+
+    function logout() {
+        localStorage.removeItem('admin');
+        window.location.href = 'index.html';
+    }
+</script>
+</script>
+</body>
+</html>
